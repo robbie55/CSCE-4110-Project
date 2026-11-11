@@ -1,13 +1,12 @@
 from collections.abc import Callable
-from dataclasses import dataclass
 
 # Called with the list after each step so the visualizer can draw it.
 StepCallback = Callable[[list[int]], None]
 
 
-@dataclass
 class Stats:
     """Operation counts for one sort run."""
 
-    comparisons: int = 0
-    swaps: int = 0  # merge sort counts element moves here
+    def __init__(self) -> None:
+        self.comparisons = 0
+        self.swaps = 0  # merge sort counts element moves here
