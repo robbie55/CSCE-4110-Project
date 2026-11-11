@@ -1,0 +1,19 @@
+# Local agent notes
+.scratch/*
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Course handouts (kept local)
+*.docx
