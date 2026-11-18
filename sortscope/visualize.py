@@ -27,9 +27,6 @@ def visualize(algorithm: str, size: int) -> None:
     step_count = 0
 
     def draw(current: list[int]) -> None:
-        nonlocal step_count
-        step_count += 1
-
         # Clear the terminal before drawing each step
         print("\033[2J\033[H", end="")
 
@@ -46,6 +43,11 @@ def visualize(algorithm: str, size: int) -> None:
 
         time.sleep(0.1)
 
+    def on_step(current: list[int]) -> None:
+        nonlocal step_count
+        step_count += 1
+        draw(current)
+
     print(f"Starting {algorithm.title()} Sort...")
     time.sleep(1)
 
@@ -53,10 +55,7 @@ def visualize(algorithm: str, size: int) -> None:
     draw(data)
 
     # Run the selected sorting algorithm
-    result = ALGORITHMS[algorithm](data, stats, draw)
-
-    # Display the final sorted result
-    draw(result)
+    result = ALGORITHMS[algorithm](data, stats, on_step)
 
     print("\nSorting complete!")
     print(f"Final result: {result}")

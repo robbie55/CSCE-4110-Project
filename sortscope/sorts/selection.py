@@ -27,8 +27,8 @@ def selection_sort(
             arr[i], arr[min_index] = arr[min_index], arr[i]
             stats.swaps += 1
 
-        # Update the visualization after each pass
-        if on_step is not None:
-            on_step(arr.copy())
+            # Update visualization after each swap
+            if on_step is not None:
+                on_step(arr.copy())
 
     return arr
