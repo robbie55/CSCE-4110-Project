@@ -50,10 +50,30 @@ def test_operation_counts(name: str, data: list[int], comparisons: int, swaps: i
 
 
 @pytest.mark.parametrize(
+    ("data", "comparisons", "swaps"),
+    [
+        ([], 0, 0),
+        ([1, 2, 3, 4], 4, 4),
+        ([3, 1, 2], 3, 4),
+        ([4, 3, 2, 1], 4, 6),
+        ([5, 5, 5], 3, 4),
+        (list(range(20)), 54, 24),
+        (list(range(20, 0, -1)), 58, 40),
+    ],
+)
+def test_quick_operation_counts(data: list[int], comparisons: int, swaps: int) -> None:
+    stats = Stats()
+    ALGORITHMS["quick"](data, stats)
+
+    assert (stats.comparisons, stats.swaps) == (comparisons, swaps)
+
+
+@pytest.mark.parametrize(
     ("name", "expected"),
     [
         ("bubble", [[2, 3, 1], [2, 1, 3], [1, 2, 3]]),
         ("insertion", [[2, 3, 1], [2, 1, 3], [1, 2, 3]]),
+        ("quick", [[3, 1, 2], [1, 3, 2], [1, 2, 3]]),
     ],
 )
 def test_visualization_steps(name: str, expected: list[list[int]]) -> None:
