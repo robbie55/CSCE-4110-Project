@@ -45,7 +45,7 @@ def my_sort(data: list[int], stats: Stats, on_step: StepCallback | None = None) 
 ```
 
 - Return a sorted **copy**; never modify `data`.
-- Increment `stats.comparisons` and `stats.swaps` as you go.
-- Call `on_step(current_list)` after each step if it's given (drives the visualizer).
+- Increment `stats.comparisons` and `stats.swaps` as you go. Merge sort counts element moves in `stats.swaps`.
+- A step is one swap or move. Call `on_step(current_list)` right after every `stats.swaps += 1` if it's given (drives the visualizer).
 
 Then register it in `ALGORITHMS` in `sortscope/sorts/__init__.py`. Tests pick it up automatically.
