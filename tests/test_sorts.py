@@ -32,7 +32,15 @@ def test_matches_sorted(name: str, case: str) -> None:
 @pytest.mark.parametrize("name", ["bubble", "insertion"])
 @pytest.mark.parametrize(
     ("data", "comparisons", "swaps"),
-    [([], 0, 0), ([1, 2, 3, 4], 3, 0), ([3, 1, 2], 3, 2), ([4, 3, 2, 1], 6, 6)],
+    [
+        ([], 0, 0),
+        ([1, 2, 3, 4], 3, 0),
+        ([3, 1, 2], 3, 2),
+        ([4, 3, 2, 1], 6, 6),
+        ([5, 5, 5], 2, 0),
+        (list(range(20)), 19, 0),
+        (list(range(20, 0, -1)), 190, 190),
+    ],
 )
 def test_operation_counts(name: str, data: list[int], comparisons: int, swaps: int) -> None:
     stats = Stats()
@@ -42,11 +50,15 @@ def test_operation_counts(name: str, data: list[int], comparisons: int, swaps: i
 
 
 @pytest.mark.parametrize(
-    ("name", "first_frame"), [("bubble", [2, 1, 3]), ("insertion", [2, 3, 1])]
+    ("name", "expected"),
+    [
+        ("bubble", [[2, 3, 1], [2, 1, 3], [1, 2, 3]]),
+        ("insertion", [[2, 3, 1], [2, 1, 3], [1, 2, 3]]),
+    ],
 )
-def test_visualization_steps(name: str, first_frame: list[int]) -> None:
+def test_visualization_steps(name: str, expected: list[list[int]]) -> None:
     frames: list[list[int]] = []
     result = ALGORITHMS[name]([3, 2, 1], Stats(), frames.append)
 
-    assert frames == [first_frame, [1, 2, 3]]
+    assert frames == expected
     assert frames[-1] is not result

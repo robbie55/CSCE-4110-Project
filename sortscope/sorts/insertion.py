@@ -15,9 +15,8 @@ def insertion_sort(data: list[int], stats: Stats, on_step: StepCallback | None =
 
             result[previous], result[position] = result[position], result[previous]
             stats.swaps += 1
+            if on_step is not None:
+                on_step(result.copy())
             position -= 1
-
-        if on_step is not None:
-            on_step(result.copy())
 
     return result
