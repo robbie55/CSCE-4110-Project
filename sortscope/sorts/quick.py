@@ -38,14 +38,13 @@ def quick_sort(data: list[int], stats: Stats, on_step: StepCallback | None = Non
 
         return i
 
-    def sort(low: int, high: int) -> None:
-        if low >= high:
-            return
-
-        p = partition(low, high)
-        sort(low, p - 1)
-        sort(p + 1, high)
-
-    sort(0, len(arr) - 1)
+    # Not recursive: lopsided partitions would exceed Python's recursion limit.
+    stack = [(0, len(arr) - 1)]
+    while stack:
+        low, high = stack.pop()
+        if low < high:
+            p = partition(low, high)
+            stack.append((p + 1, high))
+            stack.append((low, p - 1))  # pushed last so left is sorted first
 
     return arr

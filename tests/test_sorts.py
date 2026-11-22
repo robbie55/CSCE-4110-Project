@@ -68,6 +68,12 @@ def test_quick_operation_counts(data: list[int], comparisons: int, swaps: int) -
     assert (stats.comparisons, stats.swaps) == (comparisons, swaps)
 
 
+def test_quick_lopsided_partitions() -> None:
+    data = [5] * 2000  # every partition removes only the pivot
+
+    assert ALGORITHMS["quick"](data, Stats()) == data
+
+
 @pytest.mark.parametrize(
     ("name", "expected"),
     [
