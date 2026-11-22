@@ -13,9 +13,9 @@ def bubble_sort(data: list[int], stats: Stats, on_step: StepCallback | None = No
                 result[index], result[index + 1] = result[index + 1], result[index]
                 stats.swaps += 1
                 swapped = True
+                if on_step is not None:
+                    on_step(result.copy())
 
-        if on_step is not None:
-            on_step(result.copy())
         if not swapped:
             break
 
